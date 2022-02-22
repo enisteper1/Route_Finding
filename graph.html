@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Istanbul", "label": "Istanbul", "shape": "dot", "size": 10}, {"id": "Izmit", "label": "Izmit", "shape": "dot", "size": 10}, {"id": "Bursa", "label": "Bursa", "shape": "dot", "size": 10}, {"id": "Adapazari", "label": "Adapazari", "shape": "dot", "size": 10}, {"id": "Bolu", "label": "Bolu", "shape": "dot", "size": 10}, {"id": "Bilecik", "label": "Bilecik", "shape": "dot", "size": 10}, {"id": "Ankara", "label": "Ankara", "shape": "dot", "size": 10}, {"id": "Kastamonu", "label": "Kastamonu", "shape": "dot", "size": 10}, {"id": "Karabuk", "label": "Karabuk", "shape": "dot", "size": 10}, {"id": "Zonguldak", "label": "Zonguldak", "shape": "dot", "size": 10}, {"id": "Kirikkale", "label": "Kirikkale", "shape": "dot", "size": 10}, {"id": "Eskisehir", "label": "Eskisehir", "shape": "dot", "size": 10}, {"id": "Afyon", "label": "Afyon", "shape": "dot", "size": 10}, {"id": "Konya", "label": "Konya", "shape": "dot", "size": 10}, {"id": "Aksaray", "label": "Aksaray", "shape": "dot", "size": 10}, {"id": "Cankiri", "label": "Cankiri", "shape": "dot", "size": 10}, {"id": "Yozgat", "label": "Yozgat", "shape": "dot", "size": 10}, {"id": "Corum", "label": "Corum", "shape": "dot", "size": 10}, {"id": "Kirsehir", "label": "Kirsehir", "shape": "dot", "size": 10}, {"id": "Kayseri", "label": "Kayseri", "shape": "dot", "size": 10}, {"id": "Nevsehir", "label": "Nevsehir", "shape": "dot", "size": 10}, {"id": "Isparta", "label": "Isparta", "shape": "dot", "size": 10}, {"id": "Antalya", "label": "Antalya", "shape": "dot", "size": 10}, {"id": "Mugla", "label": "Mugla", "shape": "dot", "size": 10}, {"id": "Usak", "label": "Usak", "shape": "dot", "size": 10}, {"id": "Denizli", "label": "Denizli", "shape": "dot", "size": 10}, {"id": "Balikesir", "label": "Balikesir", "shape": "dot", "size": 10}, {"id": "Kutahya", "label": "Kutahya", "shape": "dot", "size": 10}, {"id": "Canakkale", "label": "Canakkale", "shape": "dot", "size": 10}, {"id": "Izmir", "label": "Izmir", "shape": "dot", "size": 10}, {"id": "Aydin", "label": "Aydin", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Distance": 103, "from": "Istanbul", "to": "Izmit", "weight": 1}, {"Distance": 153, "from": "Istanbul", "to": "Bursa", "weight": 1}, {"Distance": 53, "from": "Izmit", "to": "Adapazari", "weight": 1}, {"Distance": 125, "from": "Adapazari", "to": "Bolu", "weight": 1}, {"Distance": 105, "from": "Adapazari", "to": "Bilecik", "weight": 1}, {"Distance": 187, "from": "Bolu", "to": "Ankara", "weight": 1}, {"Distance": 252, "from": "Bolu", "to": "Kastamonu", "weight": 1}, {"Distance": 155, "from": "Bolu", "to": "Karabuk", "weight": 1}, {"Distance": 158, "from": "Bolu", "to": "Zonguldak", "weight": 1}, {"Distance": 73, "from": "Ankara", "to": "Kirikkale", "weight": 1}, {"Distance": 235, "from": "Ankara", "to": "Eskisehir", "weight": 1}, {"Distance": 259, "from": "Ankara", "to": "Afyon", "weight": 1}, {"Distance": 271, "from": "Ankara", "to": "Konya", "weight": 1}, {"Distance": 237, "from": "Ankara", "to": "Aksaray", "weight": 1}, {"Distance": 132, "from": "Ankara", "to": "Cankiri", "weight": 1}, {"Distance": 140, "from": "Kirikkale", "to": "Yozgat", "weight": 1}, {"Distance": 165, "from": "Kirikkale", "to": "Corum", "weight": 1}, {"Distance": 107, "from": "Kirikkale", "to": "Cankiri", "weight": 1}, {"Distance": 135, "from": "Kirsehir", "to": "Kayseri", "weight": 1}, {"Distance": 96, "from": "Kirsehir", "to": "Aksaray", "weight": 1}, {"Distance": 93, "from": "Kirsehir", "to": "Nevsehir", "weight": 1}, {"Distance": 114, "from": "Kirsehir", "to": "Yozgat", "weight": 1}, {"Distance": 80, "from": "Kayseri", "to": "Nevsehir", "weight": 1}, {"Distance": 172, "from": "Kayseri", "to": "Yozgat", "weight": 1}, {"Distance": 126, "from": "Isparta", "to": "Antalya", "weight": 1}, {"Distance": 271, "from": "Isparta", "to": "Mugla", "weight": 1}, {"Distance": 172, "from": "Isparta", "to": "Usak", "weight": 1}, {"Distance": 165, "from": "Isparta", "to": "Afyon", "weight": 1}, {"Distance": 241, "from": "Isparta", "to": "Konya", "weight": 1}, {"Distance": 169, "from": "Isparta", "to": "Denizli", "weight": 1}, {"Distance": 314, "from": "Antalya", "to": "Mugla", "weight": 1}, {"Distance": 224, "from": "Antalya", "to": "Denizli", "weight": 1}, {"Distance": 147, "from": "Bursa", "to": "Balikesir", "weight": 1}, {"Distance": 178, "from": "Bursa", "to": "Kutahya", "weight": 1}, {"Distance": 152, "from": "Bursa", "to": "Eskisehir", "weight": 1}, {"Distance": 96, "from": "Bursa", "to": "Bilecik", "weight": 1}, {"Distance": 193, "from": "Balikesir", "to": "Canakkale", "weight": 1}, {"Distance": 192, "from": "Balikesir", "to": "Izmir", "weight": 1}, {"Distance": 226, "from": "Balikesir", "to": "Usak", "weight": 1}, {"Distance": 225, "from": "Balikesir", "to": "Kutahya", "weight": 1}, {"Distance": 318, "from": "Canakkale", "to": "Izmir", "weight": 1}, {"Distance": 112, "from": "Izmir", "to": "Aydin", "weight": 1}, {"Distance": 222, "from": "Izmir", "to": "Usak", "weight": 1}, {"Distance": 98, "from": "Aydin", "to": "Mugla", "weight": 1}, {"Distance": 125, "from": "Aydin", "to": "Denizli", "weight": 1}, {"Distance": 146, "from": "Mugla", "to": "Denizli", "weight": 1}, {"Distance": 146, "from": "Denizli", "to": "Usak", "weight": 1}, {"Distance": 78, "from": "Kutahya", "to": "Eskisehir", "weight": 1}, {"Distance": 132, "from": "Eskisehir", "to": "Afyon", "weight": 1}, {"Distance": 150, "from": "Konya", "to": "Aksaray", "weight": 1}, {"Distance": 73, "from": "Nevsehir", "to": "Aksaray", "weight": 1}, {"Distance": 108, "from": "Yozgat", "to": "Corum", "weight": 1}, {"Distance": 156, "from": "Corum", "to": "Cankiri", "weight": 1}, {"Distance": 200, "from": "Corum", "to": "Kastamonu", "weight": 1}, {"Distance": 107, "from": "Cankiri", "to": "Kastamonu", "weight": 1}, {"Distance": 107, "from": "Kastamonu", "to": "Karabuk", "weight": 1}, {"Distance": 118, "from": "Karabuk", "to": "Zonguldak", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
